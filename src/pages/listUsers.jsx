@@ -47,9 +47,9 @@ function listUsers() {
 
 
   useEffect(() => {
-    if (!localStorage.getItem("authenticated")) {
-      navigate("/");
-    }
+    // if (!localStorage.getItem("authenticated")) {
+    //   navigate("/");
+    // }
     getUsers();
   }, []);
 

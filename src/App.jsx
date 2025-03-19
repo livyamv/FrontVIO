@@ -9,11 +9,8 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Login />} />
-          <Route path="/cadastro" element={<Cadastro />} />
-          <Route path="/users" element={<ListUsers />} />
-          <ProtectedRoute>
-            <ListUsers/>
-          </ProtectedRoute>
+          <Route path="/cadastro" element={<ProtectedRoute><Cadastro/></ProtectedRoute>} />
+          <Route path="/users" element={<ProtectedRoute><ListUsers/></ProtectedRoute>} />
         </Routes>
       </BrowserRouter>
     </div>

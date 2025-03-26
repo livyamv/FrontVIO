@@ -59,7 +59,7 @@ function listUsers() {
         <h1>Carregando usuários</h1>
       ) : (
         <div>
-          <h2>Lista de usuários:</h2>
+          <h5>Lista de usuários:</h5>
           <TableContainer component={Paper} style={{ margin: "2px" }}>
             <Table size="small">
               <TableHead

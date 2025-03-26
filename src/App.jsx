@@ -5,7 +5,7 @@ import Cadastro from "./pages/Cadastro";
 import ProtectedRoute from "./components/ProtectedRoute";
 function App() {
   return (
-    <div>
+    
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Login />} />
@@ -13,7 +13,7 @@ function App() {
           <Route path="/users" element={<ProtectedRoute><ListUsers/></ProtectedRoute>} />
         </Routes>
       </BrowserRouter>
-    </div>
+    
   );
 }
 export default App;

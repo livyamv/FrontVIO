@@ -11,6 +11,7 @@ const sheets = {
     getUsers:()=>api.get("user"),
     postLogin:(user) => api.post("login/", user),
     deleteUser:(id) => api.delete("user/"+id),
+    getEvento:()=> api.get("evento")
 }
 
 export default sheets;

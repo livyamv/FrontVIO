@@ -108,7 +108,7 @@ function listUsers() {
           <TableContainer component={Paper} style={{ margin: "2px" }}>
             <Table size="small">
               <TableHead
-                style={{ backgroundColor: "#D360FD", borderStyle: "solid" }}
+                style={{ backgroundColor: "#c9cfff" }}
               >
                 <TableRow>
                   <TableCell align="center">Nome</TableCell>
@@ -124,10 +124,19 @@ function listUsers() {
             fullWidth
             variant="contained"
             onClick={logout}
-            sx={{ backgroundColor: "#E8B6FF" }}
+            sx={{ backgroundColor: "#c9cfff" }}
           >
             SAIR
           </Button>
+          <Button
+  fullWidth
+  variant="outlined"
+  component={Link}
+  to="/eventos"
+  sx={{ marginBottom: "10px", borderColor: "#c9cfff", color: "#c9cfff" }}
+>
+  Ver Eventos
+</Button>
         </div>
       )}
     </div>

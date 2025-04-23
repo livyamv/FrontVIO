@@ -67,14 +67,13 @@ function listEvento() {
   const listEvento = events.map((evento) => {
     return (
       <TableRow key={evento.id_evento}>
-        <TableCell align="center">{evento.n0me}</TableCell>
+        <TableCell align="center">{evento.nome}</TableCell>
         <TableCell align="center">{evento.descricao}</TableCell>
         <TableCell align="center">{evento.data_hora}</TableCell>
         <TableCell align="center">{evento.local}</TableCell>
-        <TableCell align="center">{evento.fk_id_organizador}</TableCell>
 
         <TableCell align="center">
-          <IconButton onClick={() => deleteEvento(evento.id)}>
+          <IconButton onClick={() => deleteEvento(evento.id_evento)}>
             <DeleteIcon color="error" />
           </IconButton>
         </TableCell>
@@ -110,12 +109,13 @@ function listEvento() {
           <TableContainer component={Paper} style={{ margin: "2px" }}>
             <Table size="small">
               <TableHead
-                style={{ backgroundColor: "#FF84C6", borderStyle: "solid" }}
+                style={{ backgroundColor: "#c9cfff"}}
               >
                 <TableRow>
                   <TableCell align="center">Nome</TableCell>
-                  <TableCell align="center">Email</TableCell>
-                  <TableCell align="center">CPF</TableCell>
+                  <TableCell align="center">Descrição</TableCell>
+                  <TableCell align="center">Data & hora</TableCell>
+                  <TableCell align="center">Local</TableCell>
                   <TableCell align="center">Ações</TableCell>
                 </TableRow>
               </TableHead>
@@ -126,10 +126,21 @@ function listEvento() {
             fullWidth
             variant="contained"
             onClick={logout}
-            sx={{ backgroundColor: "#EF007E" }}
+            sx={{ backgroundColor: "#c9cfff" }}
           >
             SAIR
           </Button>
+
+          <Button
+  fullWidth
+  variant="outlined"
+  component={Link}
+  to="/users"
+  sx={{ marginBottom: "10px", borderColor: "#c9cfff", color: "#c9cfff" }}
+>
+  Ver Usuários
+</Button>
+
         </div>
       )}
     </div>

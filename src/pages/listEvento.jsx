@@ -13,7 +13,7 @@ import api from "../axios/axios";
 import { Button, IconButton, Alert, Snackbar } from "@mui/material";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function listEvento() {
   const [events, setEvento] = useState([]);
@@ -95,10 +95,19 @@ function listEvento() {
 
   return (
     <div>
-      <Snackbar open = {alert.open} autoHideDuration={3000} onClose={handleCloseAlert} anchorOrigin={{vertical:"top", horizontal:"center"}}>
-      <Alert onClose={handleCloseAlert} severity={alert.severity} sx={{width:"100%"}}>
-        {alert.message}
-      </Alert>
+      <Snackbar
+        open={alert.open}
+        autoHideDuration={3000}
+        onClose={handleCloseAlert}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
+        <Alert
+          onClose={handleCloseAlert}
+          severity={alert.severity}
+          sx={{ width: "100%" }}
+        >
+          {alert.message}
+        </Alert>
       </Snackbar>
       {events.length === 0 ? ( //? = após a '?' é true
         <p>Carregando eventos</p>
@@ -108,9 +117,7 @@ function listEvento() {
           <h5>Lista de eventos</h5>
           <TableContainer component={Paper} style={{ margin: "2px" }}>
             <Table size="small">
-              <TableHead
-                style={{ backgroundColor: "#c9cfff"}}
-              >
+              <TableHead style={{ backgroundColor: "#c9cfff" }}>
                 <TableRow>
                   <TableCell align="center">Nome</TableCell>
                   <TableCell align="center">Descrição</TableCell>
@@ -130,17 +137,6 @@ function listEvento() {
           >
             SAIR
           </Button>
-
-          <Button
-  fullWidth
-  variant="outlined"
-  component={Link}
-  to="/users"
-  sx={{ marginBottom: "10px", borderColor: "#c9cfff", color: "#c9cfff" }}
->
-  Ver Usuários
-</Button>
-
         </div>
       )}
     </div>

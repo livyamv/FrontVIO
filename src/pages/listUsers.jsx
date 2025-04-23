@@ -11,9 +11,9 @@ import TableCell from "@mui/material/TableCell";
 import Paper from "@mui/material/Paper";
 import api from "../axios/axios";
 import { Button, IconButton, Alert, Snackbar } from "@mui/material";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Link, useNavigate } from "react-router-dom";
+import ConfirmDelete from "../components/ConfirmDelete";
 
 function listUsers() {
   const [users, setUsers] = useState([]);
@@ -28,6 +28,11 @@ function listUsers() {
     message: "",
   });
 
+  const navigate = useNavigate();
+
+  const [userToDelete, setUserToDelete] = useState("");
+  const [modalOpen, setModalOpen] = useState(false);
+
   // função para exibir o alerta
   const showAlert = (severity, message) => {
     setAlert({ open: true, severity, message });
@@ -38,7 +43,10 @@ function listUsers() {
     setAlert({ ...alert, open: false });
   };
 
-  const navigate = useNavigate();
+  const openDeleteModal = (id, name) => {
+    setUserToDelete({ id: id, name: name });
+    setModalOpen(true);
+  };
 
   async function getUsers() {
     // Chamada da Api
@@ -53,14 +61,16 @@ function listUsers() {
     );
   }
 
-  async function deleteUser(id) {
+  async function deleteUser() {
     try {
-      await api.deleteUser(id);
+      await api.deleteUser(userToDelete.id);
       await getUsers();
       showAlert("success", "Usuário excluído com sucesso!");
+      setModalOpen(false)
     } catch (error) {
       console.log("Erro ao deletar usuário...", error);
       showAlert("error", error.response.data.error);
+      setModalOpen(false)
     }
   }
 
@@ -72,7 +82,9 @@ function listUsers() {
         <TableCell align="center">{user.cpf}</TableCell>
 
         <TableCell align="center">
-          <IconButton onClick={() => deleteUser(user.id)}>
+          <IconButton
+            onClick={() => openDeleteModal(user.id_usuario, user.name)}
+          >
             <DeleteIcon color="error" />
           </IconButton>
         </TableCell>
@@ -94,11 +106,26 @@ function listUsers() {
 
   return (
     <div>
-      <Snackbar open = {alert.open} autoHideDuration={3000} onClose={handleCloseAlert} anchorOrigin={{vertical:"top", horizontal:"center"}}>
-      <Alert onClose={handleCloseAlert} severity={alert.severity} sx={{width:"100%"}}>
-        {alert.message}
-      </Alert>
+      <Snackbar
+        open={alert.open}
+        autoHideDuration={3000}
+        onClose={handleCloseAlert}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
+        <Alert
+          onClose={handleCloseAlert}
+          severity={alert.severity}
+          sx={{ width: "100%" }}
+        >
+          {alert.message}
+        </Alert>
       </Snackbar>
+      <ConfirmDelete
+        open={modalOpen}
+        userName={userToDelete.name}
+        onConfirm={deleteUser}
+        onClose={() => setModalOpen(false)}
+      />
       {users.length === 0 ? ( //? = após a '?' é true
         <p>Carregando usuários</p>
       ) : (
@@ -108,7 +135,7 @@ function listUsers() {
           <TableContainer component={Paper} style={{ margin: "2px" }}>
             <Table size="small">
               <TableHead
-                style={{ backgroundColor: "#c9cfff" }}
+                style={{ backgroundColor: "#c9cfff", borderStyle: "solid" }}
               >
                 <TableRow>
                   <TableCell align="center">Nome</TableCell>

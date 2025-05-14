@@ -10,6 +10,7 @@ import { Link , useNavigate} from "react-router-dom";
 import { useState } from "react";
 import api from "../axios/axios"
 
+
 function Login() {
   const [user, setUser] = useState({
     email: "",
@@ -31,6 +32,7 @@ function Login() {
       (response)=>{
         alert(response.data.message)
         localStorage.setItem('authenticated',true)
+        localStorage.setItem("token", response.data.token);
         navigate("users/")
       },
     (error)=>{

@@ -7,14 +7,16 @@ const api = axios.create({
   },
 });
 
-api.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token");
-  console.log(token);
-  if (token) {
-    config.headers.Authorization = `${token}`;
-  }
-  return config;
-},(error)=> Promise.reject(error)
+api.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("token");
+    console.log(token);
+    if (token) {
+      config.headers.Authorization = `${token}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
 );
 
 const sheets = {
@@ -23,6 +25,18 @@ const sheets = {
   deleteUser: (id) => api.delete("user/" + id),
   getEvento: () => api.get("evento"),
   deleteEvento: (id) => api.delete("evento/" + id),
+  createEvento: (form, imagem) => {
+    const data = new FormData();
+    for (let key in form) data.append(key, form[key]);
+    if(imagem) data.append("imagem",imagem);
+
+    return api.post("/evento",data,{
+      headers:{
+        "Content-Type":"multpart/form-data",
+        Accept:"application/json",
+      }
+    })
+  },
 };
 
 export default sheets;

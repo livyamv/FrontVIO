@@ -152,7 +152,7 @@ function Login() {
               mb: 2,
               backgroundColor: "#FFB3C6",
             }}>
-            <Link to="/cadastro">Cadastro</Link>
+            <Link to="/CreateEvent">Cadastro</Link>
           </Button>
         </Box>
         
